@@ -1,162 +1,457 @@
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fifi Ding</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" type="image/png" href="src/image/lotus_flower.png">
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Chakra+Petch:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0C0724; --panel:#150D38; --mint:#5CFFC8; --pink:#FF4FD8; --lime:#D8FF3E; --cyan:#38E1FF; --lav:#B9A6FF; --text:#EDE8FF;
-  --display:"Dela Gothic One","Arial Black",sans-serif;
-  --body:"Chakra Petch","Segoe UI",system-ui,sans-serif;
-}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--body);font-weight:500;font-size:1.05rem;line-height:1.7;color:var(--text);background:var(--bg);
-  background-image:
-    linear-gradient(rgba(92,255,200,.07) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(92,255,200,.07) 1px,transparent 1px),
-    radial-gradient(ellipse at 20% 0,rgba(255,79,216,.25),transparent 55%),
-    radial-gradient(ellipse at 90% 40%,rgba(56,225,255,.18),transparent 50%);
-  background-size:44px 44px,44px 44px,auto,auto;
-  padding:clamp(10px,2.5vw,28px);min-height:100vh;
-}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
-.wrap{max-width:1040px;margin:0 auto;display:grid;gap:clamp(14px,2.5vw,26px);position:relative;z-index:1}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b18">
+  <title>Fifi Ding — Digital Field Notes</title>
+  <link rel="icon" type="image/png" href="src/image/lotus_flower.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #101b18;
+      --ink-2: #172722;
+      --paper: #f4edda;
+      --paper-dim: #d7d0bd;
+      --jade: #83f0b2;
+      --jade-deep: #2cbb83;
+      --acid: #d9ff4f;
+      --verm: #ff593f;
+      --pink: #ff83c8;
+      --cyan: #65e8e5;
+      --amber: #ffb52e;
+      --line: rgba(217,255,79,.35);
+      --display: "Space Grotesk", "Noto Sans SC", sans-serif;
+      --body: "Chakra Petch", "Noto Sans SC", sans-serif;
+      --mono: "DM Mono", monospace;
+    }
 
-/* system window */
-.win{--c:var(--mint);background:var(--panel);border:2px solid var(--c);border-radius:6px;box-shadow:0 0 0 1px #000,0 0 18px color-mix(in srgb,var(--c) 55%,transparent),inset 0 0 24px color-mix(in srgb,var(--c) 12%,transparent)}
-.win>.title{display:flex;align-items:center;gap:.5rem;padding:.3rem .8rem;background:var(--c);color:#0C0724;font-weight:700;font-size:.95rem}
-.win>.title i{width:11px;height:11px;border:2px solid #0C0724;display:inline-block}
-.win>.title i:first-child{border-radius:50%}
-.win>.title span{margin-left:auto;display:flex;gap:6px}
-.win>.body{padding:clamp(1.1rem,3vw,2rem)}
-.pink{--c:var(--pink)}.cyan{--c:var(--cyan)}.lime{--c:var(--lime)}.lav{--c:var(--lav)}
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      padding: clamp(10px, 2.5vw, 30px);
+      color: var(--paper);
+      background-color: var(--ink);
+      background-image:
+        linear-gradient(rgba(131,240,178,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(131,240,178,.055) 1px, transparent 1px),
+        radial-gradient(ellipse at 12% 4%, rgba(255,89,63,.19), transparent 34rem),
+        radial-gradient(ellipse at 92% 35%, rgba(101,232,229,.13), transparent 34rem);
+      background-size: 32px 32px, 32px 32px, auto, auto;
+      font: 500 1.03rem/1.7 var(--body);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "香港  /  HONG KONG  /  香港  /  HONG KONG  /  香港  /  HONG KONG";
+      position: fixed;
+      z-index: 0;
+      top: 46%;
+      left: -5rem;
+      width: 120vh;
+      color: rgba(217,255,79,.035);
+      font: 900 clamp(2.4rem, 7vw, 6rem)/1 var(--display);
+      letter-spacing: .12em;
+      transform: rotate(-90deg) translateX(-50%);
+      transform-origin: left top;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: .19;
+      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,.28) 4px);
+      mix-blend-mode: multiply;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--acid); outline-offset: 4px; }
 
-/* top nav */
-.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:.5rem 1rem;border:2px solid var(--lav);border-radius:6px;background:var(--panel);font-weight:700}
-.top nav{display:flex;gap:1.3rem}
-.top a{text-decoration:none}.top a:hover{color:var(--mint);text-shadow:0 0 10px var(--mint)}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);margin-right:.5rem;animation:blink 1.6s steps(2) infinite}
-@keyframes blink{50%{opacity:.2}}
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: clamp(13px, 2vw, 22px);
+      position: relative;
+      z-index: 1;
+    }
 
-/* hero */
-.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:1.5rem;align-items:center}
-.alert{display:inline-flex;align-items:center;gap:.6rem;border:2px solid var(--lime);color:var(--lime);padding:.1rem .9rem;border-radius:4px;font-weight:700;margin-bottom:1rem;box-shadow:0 0 12px rgba(216,255,62,.4)}
-.alert b{display:inline-block;width:0;height:0;border:9px solid transparent;border-bottom:16px solid var(--lime);border-top:0}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(3rem,10.5vw,7.2rem);line-height:.92;color:var(--mint);text-shadow:0 0 6px var(--mint),0 0 28px rgba(92,255,200,.6);position:relative}
-h1 span{display:block}
-h1 .g{color:var(--pink);text-shadow:0 0 6px var(--pink),0 0 28px rgba(255,79,216,.7)}
-/* the one big motion: a glitch burst on load */
-h1 span{animation:glitch 1.1s steps(1) 1}
-@keyframes glitch{
-  0%,100%{transform:none;filter:none}
-  15%{transform:translate(-6px,2px);filter:drop-shadow(5px 0 var(--pink)) drop-shadow(-5px 0 var(--cyan))}
-  30%{transform:translate(5px,-2px);clip-path:inset(30% 0 40% 0)}
-  45%{transform:translate(-3px,0);clip-path:none;filter:drop-shadow(-4px 0 var(--pink))}
-  60%{transform:translate(4px,1px);clip-path:inset(60% 0 10% 0)}
-  75%{transform:none;clip-path:none}
-}
-h1:hover span{animation:glitch .5s steps(1) 1}
-.lead{max-width:36ch;margin-top:1.3rem}
-.cursor{display:inline-block;width:.6em;height:1.1em;background:var(--mint);vertical-align:-.2em;margin-left:.2em;animation:blink 1s steps(2) infinite}
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: .65rem 1rem;
+      border: 1px solid var(--jade);
+      background: rgba(16,27,24,.94);
+      box-shadow: 4px 4px 0 var(--verm);
+      font: 700 .85rem var(--mono);
+      letter-spacing: .04em;
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      color: var(--ink);
+      background: var(--verm);
+      font: 900 1rem var(--display);
+      transform: rotate(-5deg);
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block; background: var(--acid);
+      box-shadow: 0 0 10px var(--acid);
+      animation: blink 1.5s steps(2) infinite;
+    }
+    .top nav { display: flex; gap: clamp(.8rem, 2.5vw, 1.8rem); flex-wrap: wrap; }
+    .top nav a { text-decoration: none; color: var(--paper-dim); }
+    .top nav a:hover { color: var(--acid); text-shadow: 0 0 12px var(--acid); }
 
-/* portrait placeholder: swap .you for <img src="you.png" alt=""> */
-.portrait{position:relative;justify-self:center;width:min(100%,300px);aspect-ratio:1}
-.portrait .ring{position:absolute;inset:0;border-radius:50%;border:3px dashed var(--cyan);box-shadow:0 0 20px var(--cyan),inset 0 0 20px rgba(56,225,255,.4);animation:spin 24s linear infinite}
-.portrait .you{position:absolute;inset:11%;border-radius:50%;border:3px solid var(--pink);box-shadow:0 0 22px var(--pink);display:grid;place-items:center;text-align:center;padding:1.2rem;font-size:.9rem;font-weight:700;background:radial-gradient(circle,#2a1060,var(--panel))}
-.portrait img.you{object-fit:cover;width:78%;height:78%;padding:0}
-@keyframes spin{to{transform:rotate(360deg)}}
+    .ticker {
+      overflow: hidden;
+      border-block: 1px solid rgba(255,181,46,.55);
+      padding: .35rem 0;
+      color: var(--amber);
+      background: rgba(255,181,46,.06);
+      font: 500 .72rem var(--mono);
+      letter-spacing: .16em;
+      white-space: nowrap;
+    }
+    .ticker span { display: inline-block; padding-left: 100%; animation: ticker 24s linear infinite; }
 
-/* content */
-h2{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,4.5vw,2.4rem);line-height:1.1;margin-bottom:1rem;color:var(--c);text-shadow:0 0 14px color-mix(in srgb,var(--c) 70%,transparent)}
-.about{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
-.tags{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
-.tags li{border:2px solid var(--lav);border-radius:4px;padding:.1rem .9rem;font-weight:700}
-.tags li:nth-child(3n+1){border-color:var(--mint);color:var(--mint)}
-.tags li:nth-child(3n+2){border-color:var(--pink);color:var(--pink)}
-.tags li:nth-child(3n){border-color:var(--cyan);color:var(--cyan)}
+    .window {
+      --accent: var(--jade);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--accent);
+      background: rgba(23,39,34,.96);
+      box-shadow: 5px 5px 0 rgba(0,0,0,.55), 0 0 22px color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+    .window::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .23;
+      background: linear-gradient(115deg, transparent 0 48%, color-mix(in srgb, var(--accent) 12%, transparent) 49%, transparent 51%);
+    }
+    .window.verm { --accent: var(--verm); }
+    .window.cyan { --accent: var(--cyan); }
+    .window.pink { --accent: var(--pink); }
+    .window.amber { --accent: var(--amber); }
+    .window.lime { --accent: var(--acid); }
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(14px,2.5vw,26px)}
-a.win{text-decoration:none;display:block;transition:transform .15s}
-a.win:hover{transform:translateY(-4px)}
-a.win .body b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;line-height:1.15;margin-bottom:.4rem;color:var(--c);text-shadow:0 0 10px var(--c)}
+    .window-head {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .42rem .8rem;
+      color: var(--ink);
+      background: var(--accent);
+      font: 700 .75rem var(--mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .window-head .cn {
+      margin-left: auto;
+      font: 700 .85rem "Noto Sans SC", sans-serif;
+      letter-spacing: .08em;
+    }
+    .window-head .controls { display: flex; gap: 5px; margin-left: .6rem; }
+    .window-head .controls i {
+      display: block; width: 10px; height: 10px;
+      border: 1.5px solid var(--ink);
+    }
+    .window-body { position: relative; z-index: 1; padding: clamp(1.15rem, 3.5vw, 2.4rem); }
 
-.links{display:flex;flex-wrap:wrap;gap:1rem}
-.btn{border:2px solid var(--c);color:var(--c);border-radius:4px;padding:.5rem 1.4rem;font-weight:700;text-decoration:none;background:transparent;box-shadow:0 0 14px color-mix(in srgb,var(--c) 50%,transparent),inset 0 0 14px color-mix(in srgb,var(--c) 18%,transparent);transition:background .15s,color .15s}
-.btn:hover{background:var(--c);color:#0C0724}
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 2rem;
+      align-items: center;
+      min-height: 390px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: 1.1rem;
+      padding: .2rem .65rem;
+      border: 1px solid var(--verm);
+      color: var(--verm);
+      background: rgba(255,89,63,.07);
+      font: 700 .72rem var(--mono);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .eyebrow b { font: 900 1rem "Noto Sans SC", sans-serif; }
+    h1 {
+      color: var(--paper);
+      font: 700 clamp(3.5rem, 10vw, 7.6rem)/.83 var(--display);
+      letter-spacing: -.085em;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 var(--verm), 8px 8px 0 rgba(101,232,229,.45);
+    }
+    h1 span { display: block; }
+    h1 .surname { color: var(--acid); margin-left: .11em; }
+    .hero-sub {
+      max-width: 36ch;
+      margin-top: 1.7rem;
+      color: var(--paper-dim);
+      font-size: 1.08rem;
+    }
+    .hero-sub strong { color: var(--jade); font-weight: 700; }
+    .cursor {
+      display: inline-block; width: .55em; height: 1em;
+      margin-left: .2em; vertical-align: -.13em;
+      background: var(--verm); animation: blink 1s steps(2) infinite;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: .55rem;
+      margin-top: 1.4rem;
+      font: 500 .7rem var(--mono);
+      color: var(--cyan);
+      letter-spacing: .06em;
+    }
+    .hero-meta span { border-bottom: 1px solid var(--cyan); padding-bottom: .15rem; }
 
-.status{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;padding:.5rem 1rem;border:2px solid var(--mint);border-radius:6px;background:var(--panel);color:var(--mint);font-weight:700}
+    .portrait {
+      position: relative;
+      justify-self: center;
+      width: min(100%, 320px);
+      aspect-ratio: 4 / 5;
+      padding: 12px;
+      border: 1px solid var(--acid);
+      background: var(--verm);
+      box-shadow: 9px 9px 0 var(--jade-deep);
+      transform: rotate(2deg);
+    }
+    .portrait::before, .portrait::after {
+      content: ""; position: absolute; z-index: 2; pointer-events: none;
+    }
+    .portrait::before {
+      inset: 7px; border: 1px solid rgba(16,27,24,.65);
+    }
+    .portrait::after {
+      width: 70px; height: 70px; top: -18px; right: -18px;
+      border: 2px solid var(--acid); border-radius: 50%;
+      box-shadow: 0 0 0 7px rgba(217,255,79,.13);
+    }
+    .portrait img {
+      width: 100%; height: 100%; display: block;
+      object-fit: cover; object-position: center 28%;
+      filter: saturate(.9) contrast(1.04);
+    }
+    .portrait-label {
+      position: absolute; z-index: 3; left: -17px; bottom: 24px;
+      padding: .35rem .6rem; color: var(--ink);
+      background: var(--acid); font: 700 .65rem var(--mono);
+      transform: rotate(-4deg);
+    }
+    .side-stamp {
+      position: absolute; right: 1rem; top: 1rem;
+      color: var(--verm); border: 2px solid var(--verm);
+      padding: .25rem .4rem; font: 900 .75rem "Noto Sans SC", sans-serif;
+      transform: rotate(8deg);
+    }
 
-@media (max-width:720px){.hero,.about{grid-template-columns:1fr}.portrait{width:min(70%,240px)}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font: 700 clamp(1.7rem, 4vw, 2.6rem)/1.05 var(--display);
+      letter-spacing: -.04em;
+    }
+    .section-kicker {
+      display: block; margin-bottom: .4rem;
+      color: var(--paper-dim); font: 500 .68rem var(--mono);
+      letter-spacing: .15em; text-transform: uppercase;
+    }
+    .about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: start; gap: 2rem;
+    }
+    .about p { max-width: 55ch; color: var(--paper-dim); }
+    .about p em { color: var(--paper); font-style: normal; }
+    .tags {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      list-style: none; padding: 0;
+    }
+    .tags li {
+      padding: .28rem .65rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: rgba(255,255,255,.025);
+      font: 600 .77rem var(--mono);
+    }
+    .tags li:nth-child(3n+2) { border-color: var(--pink); color: var(--pink); }
+    .tags li:nth-child(3n) { border-color: var(--amber); color: var(--amber); }
+
+    .section-heading {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .section-heading h2 { margin: 0; }
+    .section-heading small { color: var(--paper-dim); font: .68rem var(--mono); }
+    .cards {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(12px, 2vw, 20px);
+    }
+    a.project {
+      display: block; min-height: 190px;
+      color: var(--paper); text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    a.project:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 rgba(0,0,0,.5), 0 0 24px color-mix(in srgb,var(--accent) 25%,transparent); }
+    .project .window-body { min-height: 145px; }
+    .project-index {
+      color: var(--accent); font: 500 .7rem var(--mono);
+      letter-spacing: .12em;
+    }
+    .project b {
+      display: block; margin: .65rem 0 .35rem;
+      color: var(--accent); font: 700 1.45rem/1.08 var(--display);
+    }
+    .project p { color: var(--paper-dim); font-size: .9rem; }
+    .project-arrow { position: absolute; right: 1rem; bottom: .6rem; color: var(--accent); font-size: 1.5rem; }
+
+    .contact-copy { margin-bottom: 1.2rem; color: var(--paper-dim); }
+    .links { display: flex; flex-wrap: wrap; gap: .8rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .55rem 1rem; border: 1px solid var(--accent);
+      color: var(--accent); text-decoration: none;
+      font: 700 .78rem var(--mono); letter-spacing: .04em;
+      transition: color .15s, background .15s, transform .15s;
+    }
+    .btn:hover { color: var(--ink); background: var(--accent); transform: translateY(-2px); }
+
+    .status {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: .7rem;
+      padding: .6rem .9rem; border: 1px solid var(--jade);
+      color: var(--jade); background: rgba(16,27,24,.9);
+      font: 500 .68rem var(--mono); letter-spacing: .06em;
+    }
+    .status .right { color: var(--paper-dim); }
+    .status b { color: var(--acid); }
+
+    @keyframes blink { 50% { opacity: .25; } }
+    @keyframes ticker { to { transform: translateX(-100%); } }
+
+    @media (max-width: 760px) {
+      .hero, .about { grid-template-columns: 1fr; }
+      .hero { gap: 2.5rem; }
+      .portrait { width: min(75%, 270px); }
+      .cards { grid-template-columns: 1fr; }
+      .project { min-height: 0; }
+      .project .window-body { min-height: 125px; }
+    }
+    @media (max-width: 440px) {
+      body { padding: 9px; }
+      .top { align-items: flex-start; }
+      .top nav { width: 100%; justify-content: space-between; }
+      .window-body { padding: 1.15rem; }
+      h1 { font-size: clamp(3.3rem, 18vw, 5rem); }
+      .window-head .cn { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
+  <main class="wrap">
+    <header class="top">
+      <div class="brand"><span class="brand-mark">丁</span><span><i class="live-dot"></i> FIFI-DING.GITHUB.IO</span></div>
+      <nav aria-label="Main navigation">
+        <a href="#about">ABOUT / 關於</a>
+        <a href="#projects">PROJECTS / 作品</a>
+        <a href="#contact">CONTACT / 聯絡</a>
+      </nav>
+    </header>
 
-  <header class="top">
-    <span><i class="dot"></i>fifi-ding.github.io</span>
-    <nav><a href="#about">About</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
-  </header>
-
-  <div class="win">
-    <div class="title"><i></i>home.exe<span><i></i><i></i></span></div>
-    <div class="body hero">
-      <div>
-        <div class="alert"><b></b>New visitor detected</div>
-        <h1><span>Fifi</span><span class="g">Ding</span></h1>
-        <p class="lead">Feeling futuristic :D<i class="cursor"></i></p>
-      </div>
-      <div class="portrait">
-        <div class="ring"></div>
-        <img class="you" src="src/image/portrait2.png" alt="Portrait">
-      </div>
+    <div class="ticker" aria-label="Decorative scrolling text">
+      <span>城市訊號 CITY SIGNAL // RESEARCH IN PROGRESS // 人機互動 HUMAN-COMPUTER INTERACTION // SYSTEM ONLINE // 城市訊號 CITY SIGNAL // RESEARCH IN PROGRESS //</span>
     </div>
-  </div>
 
-  <section id="about" class="win pink">
-    <div class="title"><i></i>about.txt<span><i></i><i></i></span></div>
-    <div class="body about">
-      <div>
-        <h2>About me</h2>
-        <p>Phd Researcher at University of Antwerp</p>
+    <section class="window" aria-labelledby="home-title">
+      <div class="window-head"><span>●</span> HK-01 / personal terminal <span class="cn">個人檔案</span><span class="controls"><i></i><i></i><i></i></span></div>
+      <div class="window-body hero">
+        <div>
+          <div class="eyebrow"><b>訊</b> Incoming visitor // welcome</div>
+          <h1 id="home-title"><span>Fifi</span><span class="surname">Ding</span></h1>
+          <p class="hero-sub">Researching how people and intelligent systems meet. <strong>Feeling futuristic :D</strong><i class="cursor"></i></p>
+          <div class="hero-meta"><span>ANTWERP / BE</span><span>HCI + AI</span><span>ONLINE 24/7</span></div>
+        </div>
+        <div class="portrait">
+          <img src="src/image/portrait2.png" alt="Illustrated portrait">
+          <span class="portrait-label">USER PROFILE // 001</span>
+        </div>
+        <span class="side-stamp" aria-hidden="true">研究中</span>
       </div>
-      <ul class="tags" aria-label="Things I like">
-        <li>Responsible AI</li><li>Machine Learning</li><li>HCI</li>
-      </ul>
-    </div>
-  </section>
+    </section>
 
-  <section id="projects">
-    <div class="cards">
-      <a class="win cyan" href="#"><div class="title"><i></i>project_01<span><i></i></span></div><div class="body"><b>Simulation</b>Monitoring...</div></a>
-      <a class="win lime" href="#"><div class="title"><i></i>project_02<span><i></i></span></div><div class="body"><b>Multiverse Analysis</b>All at once</div></a>
-      <a class="win lav" href="#"><div class="title"><i></i>project_03<span><i></i></span></div><div class="body"><b>Personalization</b>Digital twin</div></a>
-    </div>
-  </section>
-
-  <section id="contact" class="win">
-    <div class="title"><i></i>contact<span><i></i><i></i></span></div>
-    <div class="body">
-      <h2>Find me @</h2>
-      <div class="links">
-        <a class="btn" style="--c:var(--mint)" href="Fifi.Ding@uantwerpen.be">Email me</a>
-        <a class="btn" style="--c:var(--pink)" href="https://github.com/fifi-ding">GitHub</a>
-        <a class="btn" style="--c:var(--cyan)" href="https://www.linkedin.com/in/fifi-ding/">Google Scholar</a>
+    <section id="about" class="window verm">
+      <div class="window-head"><span>●</span> about.txt <span class="cn">關於我</span><span class="controls"><i></i><i></i></span></div>
+      <div class="window-body about">
+        <div>
+          <span class="section-kicker">01 / identity file</span>
+          <h2>About me</h2>
+          <p>PhD researcher at the <em>University of Antwerp</em>, exploring the intersections of responsible AI, machine learning and human-computer interaction.</p>
+        </div>
+        <ul class="tags" aria-label="Research interests">
+          <li>Responsible AI</li><li>Machine Learning</li><li>HCI</li>
+          <li>Human-centred AI</li><li>Research</li><li>Design + Tech</li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="status"><span>Status: living</span><span>2026</span></footer>
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <div><span class="section-kicker">02 / selected transmissions</span><h2 id="projects-title" style="color:var(--acid)">Projects / 作品</h2></div>
+        <small>ARCHIVE // 001—003</small>
+      </div>
+      <div class="cards">
+        <a class="window cyan project" href="#">
+          <div class="window-head"><span>●</span> project_01 <span class="cn">模擬</span></div>
+          <div class="window-body"><span class="project-index">FILE 001 / SYSTEMS</span><b>Simulation</b><p>Monitoring systems and making sense of complex behaviour.</p><span class="project-arrow">↗</span></div>
+        </a>
+        <a class="window lime project" href="#">
+          <div class="window-head"><span>●</span> project_02 <span class="cn">分析</span></div>
+          <div class="window-body"><span class="project-index">FILE 002 / ANALYSIS</span><b>Multiverse Analysis</b><p>Exploring many possible analytical paths, all at once.</p><span class="project-arrow">↗</span></div>
+        </a>
+        <a class="window pink project" href="#">
+          <div class="window-head"><span>●</span> project_03 <span class="cn">個人化</span></div>
+          <div class="window-body"><span class="project-index">FILE 003 / INTERACTION</span><b>Personalization</b><p>Digital twins, individual experiences and adaptive systems.</p><span class="project-arrow">↗</span></div>
+        </a>
+      </div>
+    </section>
 
-</div>
+    <section id="contact" class="window amber">
+      <div class="window-head"><span>●</span> contact.log <span class="cn">聯絡</span><span class="controls"><i></i><i></i></span></div>
+      <div class="window-body">
+        <span class="section-kicker">03 / open channel</span>
+        <h2>Find me out there</h2>
+        <p class="contact-copy">Have a question, an idea, or a curious research rabbit hole? Send a signal.</p>
+        <div class="links">
+          <a class="btn" style="--accent:var(--acid)" href="mailto:Fifi.Ding@uantwerpen.be">↗ EMAIL</a>
+          <a class="btn" style="--accent:var(--pink)" href="https://github.com/fifi-ding" target="_blank" rel="noopener noreferrer">↗ GITHUB</a>
+          <a class="btn" style="--accent:var(--cyan)" href="https://www.linkedin.com/in/fifi-ding/" target="_blank" rel="noopener noreferrer">↗ LINKEDIN</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="status">
+      <span><i class="live-dot"></i> STATUS: <b>LIVING / RESEARCHING</b></span>
+      <span class="right">ANTWERP ↔ HONG KONG // EST. 2026</span>
+    </footer>
+  </main>
 </body>
 </html>
